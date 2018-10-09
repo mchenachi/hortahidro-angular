@@ -1,0 +1,48 @@
+<div class="content">
+
+    <div class="col-md-12">
+      <div class="header">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <a [routerLink]="['/perfil']" style="margin-top: 1rem">Suas horta</a>
+            </div>
+          </div>
+        </div>
+      
+      <hr/>
+  
+      <div class="body">
+        <div class="row">
+            <fieldset class="col-sm-12">
+              <legend>
+                Cadastre sua horta
+              </legend>
+              <form #formHorta="ngForm" novalidate>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <label class="label-control">Nome da horta:</label>
+                    <input type="text" name="nomeHorta" class="form-control" [(ngModel)]="horta.nome" required>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="label-control">Cidade da horta:</label>
+                    <input type="text" name="cidadeHorta" class="form-control" [(ngModel)]="horta.cidade" required>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="label-control">Identificação da horta:</label>
+                    <input type="text" name="idHorta" class="form-control" [(ngModel)]="horta.id" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <button type="button" class="btn btn-primary float-right" name="" (click)="handleSubmit()" [disabled]="formHorta.invalid">Enviar</button>
+                  </div>
+                </div>
+              </form>
+            </fieldset>
+        </div>
+      </div>
+    </div>
+  
+    
+  </div>
+  
