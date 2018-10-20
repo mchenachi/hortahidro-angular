@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Horta } from './cadastroHorta.model';
 import { HortaService } from './cadastroHorta.service';
-import { MediaHorta } from './mediaHorta.model';
 import { UsuarioService } from '../cadastro/cadastroUser.service';
 
 @Component({
@@ -24,9 +23,6 @@ export class CadastroHortaComponent implements OnInit {
       clima: "equatorial",
       umidade: 10
     }
-
-
-  public mediaHorta: MediaHorta
 
   constructor(private hortaService: HortaService,
     private cadastroService: UsuarioService) { }
