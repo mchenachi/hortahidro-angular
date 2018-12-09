@@ -1,35 +1,36 @@
-<div class="content">
+<div class="">
+  <img src="../../assets/img/green_leaves.png">
+
   <div class="col-md-12">
-      <img src="../../assets/img/green_leaves.png">
     <div class="header">
       <div class="row">
-          <div class="col-xs-12 col-sm-12">
-            <div class="col-xs-12 col-sm-3" style="display: inline-block; margin-top: 1rem;">
-              <a [routerLink]="['/']">Horta Hidroponica</a>
-            </div>
-            <div class="col-xs-12 col-sm-12" style="display: inline">
-              <button type="button" class="btn btn-outline-dark float-right" (click)="handleLogin()">Login</button>
-              <button type="button" name="cadastro" class="btn btn-outline-dark float-right" (click)="handleCadastro()">Cadastre-se</button>
-            </div>
+        <div class="col-xs-12 col-sm-12">
+          <div class="col-xs-12 col-sm-3" style="display: inline-block; margin-top: 1rem;">
+            <a [routerLink]="['/']">Horta Hidroponica</a>
           </div>
+          <div class="col-xs-12 col-sm-12" style="display: inline">
+            <button type="button" class="btn btn-outline-dark float-right" (click)="handleLogin()">Login</button>
+            <button type="button" name="cadastro" class="btn btn-outline-dark float-right" (click)="handleCadastro()">Cadastre-se</button>
+          </div>
+        </div>
       </div>
     </div>
-    <hr/>
+    <hr />
 
     <div class="body">
       <h1>Informações sobre hortas:</h1>
       <div class="row">
         <div class="col-sm-12 col-xs-12">
-          <div class="col-sm-3 col-xs-12" style="display: inline-block" *ngFor="let horta of horta">
-              <fieldset class="form-group">
-                <legend>{{horta.cidade}}</legend>
-                <p>PH: {{horta.ph}}</p>
-                <p>Umidade: {{horta.umidade}} g/Kg</p>
-                <p>Temperatura: {{horta.temperatura}} °C</p>
-                <p>Solo: {{horta.solo}} cm</p>
-                <p>Clima: {{horta.clima}}</p>
-                <p>Nutrientes: {{horta.nutrientes}}</p>
-              </fieldset>
+          <div class="col-sm-3 col-xs-12" style="display: inline-block" *ngFor="let horta of hortaMedia">
+            <fieldset class="form-group">
+              <legend>{{horta.cidade}}</legend>
+              <p>PH: {{horta.ph}}</p>
+              <p>Umidade: {{horta.umidade}} g/Kg</p>
+              <p>Temperatura: {{horta.temperatura}} °C</p>
+              <p>Solo: {{horta.solo}} cm</p>
+              <p>Clima: {{horta.clima}}</p>
+              <p>Nutrientes: {{horta.nutrientes}}</p>
+            </fieldset>
           </div>
         </div>
       </div>

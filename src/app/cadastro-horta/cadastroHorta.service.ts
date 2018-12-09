@@ -17,10 +17,10 @@ export class HortaService {
     constructor(private http: HttpClient) { }
 
     postHortas(horta: Horta): Observable<Horta> {
-        return this.http.post<Horta>(`http://localhost:3000/horta`, JSON.stringify(horta), options)
+        return this.http.post<Horta>(`http://localhost:3000/formHorta`, JSON.stringify(horta), options)
     }
 
     getHortas(): Observable<Horta[]> {
-        return this.http.get<Horta[]>(`http://localhost:3000/horta`)
+        return this.http.get<Horta[]>(`http://localhost:3000/api/hortas`)
     }
 }

@@ -1,6 +1,5 @@
-export class Horta{
+export class Horta {
     id: number
-    idUser: number
     nome: string
     cidade: string
     temperatura: number

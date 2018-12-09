@@ -1,92 +1,147 @@
-<div class="content">
+<div class="">
   <img src="../../assets/img/green_leaves.png">
   <div class="col-md-12">
     <div class="header">
       <div class="row">
-          <div class="col-xs-12 col-sm-12">
-              <div class="col-xs-12 col-sm-3" style="display: inline-block; margin-top: 1rem;">
-                  <a [routerLink]="['/']">Horta Hidroponica</a>
-                </div>
-                <div class="col-xs-12 col-sm-12" style="display: inline">
-                  <button type="button" class="btn btn-outline-dark float-right" (click)="handleLogin()">Login</button>
-                  <button [disabled] type="button" name="cadastro" class="btn btn-outline-dark float-right" (click)="handleCadastro()">Cadastre-se</button>
-                </div>
+        <div class="col-xs-12 col-sm-12">
+          <div class="col-xs-12 col-sm-3" style="display: inline-block; margin-top: 1rem;">
+            <a [routerLink]="['/']">Horta Hidroponica</a>
+          </div>
+          <div class="col-xs-12 col-sm-12" style="display: inline">
+            <button type="button" class="btn btn-outline-dark float-right" (click)="handleLogin()">Login</button>
+            <button [disabled] type="button" name="cadastro" class="btn btn-outline-dark float-right" (click)="handleCadastro()">Cadastre-se</button>
           </div>
         </div>
       </div>
-    
-    <hr/>
+    </div>
+
+    <hr />
 
     <div class="body">
       <div class="row">
-          <fieldset class="col-sm-12">
-            <legend>
-              Cadastre-se
-            </legend>
-            <form #formUser="ngForm" novalidate>
-              <div class="row">
-                <div class="col-sm-4">
+        <fieldset class="col-sm-12">
+          <legend>
+            Cadastre-se
+          </legend>
+          <form #formUser="ngForm" novalidate>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
                   <label class="label-control">Nome:</label>
-                  <input type="text" name="nome" class="form-control" [(ngModel)]="usuario.nome" required>
-                </div>
-                <div class="col-sm-4">
-                  <label class="label-control">Sobrenome:*</label>
-                  <input type="text" name="sobrenome" class="form-control" [(ngModel)]="usuario.sobrenome">
-                </div>
-                <div class="col-sm-4">
-                  <label class="label-control">CPF:*</label>
-                  <input type="text" name="cpf" class="form-control" [(ngModel)]="usuario.cpf">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-4">
-                  <label class="label-control">E-mail:</label>
-                  <input type="text" name="email" class="form-control" [(ngModel)]="usuario.email" required>
-                </div>
-                <div class="col-sm-4">
-                  <label class="label-control">Senha:</label>
-                  <input type="password" name="senha" class="form-control" [(ngModel)]="usuario.senha" required>
-                </div>
-                <div class="col-sm-4">
-                    <label class="label-control">Confirme sua senha:</label>
-                    <input type="password" name="confirmSenha" class="form-control" required>
-                  </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-4">
-                  <label class="label-control">Endereço:*</label>
-                  <input type="text" name="endereco" class="form-control" [(ngModel)]="usuario.endereco">
-                </div>
-                <div class="col-sm-2">
-                  <label class="label-control">Numero:*</label>
-                  <input type="text" name="numero" class="form-control" [(ngModel)]="usuario.numero">
-                </div>
-                <div class="col-sm-2">
-                  <label class="label-control">Telefone:*</label>
-                  <input type="text" name="telefone" class="form-control" [(ngModel)]="usuario.telefone">
-                </div>
-                <div class="col-sm-2">
-                  <label class="label-control">Cidade:</label>
-                  <input type="text" name="cidade" class="form-control" [(ngModel)]="usuario.cidade" required>
-                </div>  
-                <div class="col-sm-2">
-                  <label class="label-control">Estado:*</label>
-                  <select name="estado" class="form-control" [(ngModel)]="usuario.estado">
-                    <option *ngFor="let estado of estados" [value]="estado.value">{{estado.nome }}</option>
-                  </select>
+                  <input type="text" name="nome" class="form-control" #iptNome="ngModel" [(ngModel)]="usuario.nome"
+                    required minlength="3">
+
+                  <span *ngIf="iptNome.valid && (iptNome.touched || iptNome.dirty)" class="help-block has-success"><i
+                      class="fa fa-check"></i>Ok
+                  </span>
+                  <span *ngIf="iptNome.invalid && (iptNome.touched || iptNome.dirty)" class="help-block has-error"><i
+                      class="fa fa-times"></i> Campo obrigatório com +3 caracteres
+                  </span>
                 </div>
               </div>
-              <div class="row">                  
-                <div class="col-sm-12">
-                  <span>* Opcional</span>
-                  <button type="button" class="btn btn-primary float-right" name="" (click)="handleSubmit()" [disabled]="formUser.invalid">Enviar</button>
-                </div>
+              <div class="col-sm-4">
+                <label class="label-control">Sobrenome:*</label>
+                <input type="text" name="sobrenome" class="form-control" [(ngModel)]="usuario.sobrenome">
               </div>
-            </form>
-          </fieldset>
+              <div class="col-sm-4">
+                <label class="label-control">CPF:*</label>
+                <input type="text" name="cpf" class="form-control" [(ngModel)]="usuario.cpf">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <label class="label-control">E-mail:</label>
+                <input type="email" (input)="validateEmail(usuario.email)" class="form-control" name="email"
+                  [(ngModel)]="usuario.email" #iptEmail="ngModel" required minlength="5" placeholder="nome@email.com">
+
+                <span class="help-block has-success" *ngIf="iptEmail.valid && (iptEmail.dirty || iptEmail.touched) && emailValidate">
+                  <i class="fa fa-check"></i> Campo dentro dos padrões de email. Certifique-se de que o email está
+                  correto
+                </span>
+                <span class="help-block has-error" *ngIf="iptEmail.invalid && (iptEmail.dirty || iptEmail.touched)">
+                  <i class="fa fa-times" style="color: red;"></i>
+                  <span style="color: red;"> Campo obrigatório com mais de 5 caracteres</span>
+                </span>
+                <span class="help-block has-error" *ngIf="iptEmail.valid && (iptEmail.dirty || iptEmail.touched) && !emailValidate">
+                  <i class="fa fa-times" style="color: red;"></i>
+                  <span style="color: red;"> Campo não está dentro dos padrões de e-mail</span>
+                </span>
+              </div>
+
+              <div class="col-sm-4">
+                <label class="label-control">Senha:</label>
+                <input type="password" name="senha" class="form-control" #iptSenha="ngModel" [(ngModel)]="usuario.senha"
+                  required minlength="3">
+
+                <span *ngIf="iptSenha.valid && (iptSenha.touched || iptSenha.dirty)" class="help-block has-success"><i
+                    class="fa fa-check"></i>Ok
+                </span>
+                <span *ngIf="iptSenha.invalid && (iptSenha.touched || iptSenha.dirty)" class="help-block has-error"><i
+                    class="fa fa-times"></i> Campo obrigatório com +3 caracteres
+                </span>
+              </div>
+              <div class="col-sm-4">
+                <label class="label-control">Confirme sua senha:</label>
+                <input type="password" name="confirmSenha" class="form-control" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <label class="label-control">Endereço:*</label>
+                <input type="text" name="endereco" class="form-control" [(ngModel)]="usuario.endereco">
+              </div>
+              <div class="col-sm-2">
+                <label class="label-control">Numero:*</label>
+                <input type="text" name="numero" class="form-control" [(ngModel)]="usuario.numero">
+              </div>
+              <div class="col-sm-2">
+                <label class="label-control">Telefone:*</label>
+                <input type="text" name="telefone" class="form-control" [(ngModel)]="usuario.telefone">
+              </div>
+              <div class="col-sm-2">
+                <label class="label-control">Cidade:</label>
+                <input type="text" name="cidade" class="form-control" #iptCidade="ngModel" [(ngModel)]="usuario.cidade"
+                  required minlength="3">
+
+                <span *ngIf="iptCidade.valid && (iptCidade.touched || iptCidade.dirty)" class="help-block has-success"><i
+                    class="fa fa-check"></i>Ok
+                </span>
+                <span *ngIf="iptCidade.invalid && (iptCidade.touched || iptCidade.dirty)" class="help-block has-error"><i
+                    class="fa fa-times"></i> Campo obrigatório com +3 caracteres
+                </span>
+              </div>
+              <div class="col-sm-2">
+                <label class="label-control">Estado:*</label>
+                <select name="estado" class="form-control" [(ngModel)]="usuario.estado">
+                  <option *ngFor="let estado of estados" [value]="estado.value">{{estado.nome }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <span>* Opcional</span>
+                <button type="button" class="btn btn-primary float-right" name="" (click)="handleSubmit(confirmCadastro)"
+                  [disabled]="formUser.invalid && !isEmailValid">Enviar</button>
+              </div>
+            </div>
+          </form>
+        </fieldset>
       </div>
     </div>
   </div>
-
-  
 </div>
+
+<ng-template #confirmCadastro let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Sucesso!!!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <span>Usuário cadastrado com sucesso!!</span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="confirmCadastro()">Ok</button>
+  </div>
+</ng-template>

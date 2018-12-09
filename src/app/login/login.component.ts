@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../cadastro/cadastroUser.service';
 import { CadastroUser } from '../cadastro/cadastroUser.model';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -10,21 +11,20 @@ import { CadastroUser } from '../cadastro/cadastroUser.model';
 })
 export class LoginComponent implements OnInit {
 
-  private usuarios: CadastroUser[]
   public email: string
-  public senha: string
+
+  public usuario: object = {
+    email: "",
+    senha: ""
+  }
   public errMsg: string
   public hasError: boolean = false
+  headers: string[];
 
   constructor(private route: Router,
-    private usuarioService: UsuarioService) { }
+    private loginService: LoginService) { }
 
   ngOnInit() {
-    this.usuarioService.getUsuarios().subscribe(
-      (usuarios) => {
-        this.usuarios = usuarios
-      }
-    )
   }
 
   handleCadastro() {
@@ -32,20 +32,20 @@ export class LoginComponent implements OnInit {
   }
 
   handleLogin() {
-    let count: number = 0
-    this.usuarios.forEach(element => {
-      if (this.email === element.email && this.senha === element.senha) {
+    this.loginService.postUser(this.usuario).subscribe(
+      (resp) => {
+        this.email = resp.body
         this.route.navigate(['/perfil'])
       }
-      else {
-        count += 1
-      }
-    });
+    )
+  }
 
-    if (count > 0) {
-      this.hasError = true
-      this.errMsg = "Falha ao logar. Usuário/senha inválidos ou não cadastrados."
-    }
+  handleLoginGoogle() {
+    this.loginService.postUserGoogle(this.usuario).subscribe(
+      () => {
+        this.route.navigate(['/perfil'])
+      }
+    )
   }
 
 }

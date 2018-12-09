@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Horta } from './cadastroHorta.model';
 import { HortaService } from './cadastroHorta.service';
 import { UsuarioService } from '../cadastro/cadastroUser.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cadastro-horta',
@@ -10,30 +11,19 @@ import { UsuarioService } from '../cadastro/cadastroUser.service';
 })
 export class CadastroHortaComponent implements OnInit {
 
-  public horta: Horta =
-    {
-      id: null,
-      idUser: 0,
-      nome: "",
-      cidade: "",
-      temperatura: 20,
-      solo: 30,
-      ph: 7,
-      nutrientes: "potássio",
-      clima: "equatorial",
-      umidade: 10
-    }
+  public horta: Horta
 
   constructor(private hortaService: HortaService,
-    private cadastroService: UsuarioService) { }
+    private cadastroService: UsuarioService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
   }
 
-  handleSubmit() {
+  handleSubmit(modal) {
     this.hortaService.postHortas(this.horta).subscribe(
       () => {
-        console.log(this.horta)
+        this.modalService.open(modal, { windowClass: 'dark-modal', size: "lg" });
       }
     )
   }

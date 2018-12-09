@@ -16,12 +16,15 @@ export class UsuarioService {
 
     constructor(private http: HttpClient) { }
 
-    postUsuario(usuario: CadastroUser): Observable<CadastroUser> {
-        return this.http.post<CadastroUser>(`http://localhost:3000/cadastroUser`, JSON.stringify(usuario), options)
+    postUsuario(usuario: any): Observable<any> {
+        return this.http.post<any>(`http://localhost:3000/register`, JSON.stringify(usuario), options)
     }
 
     getUsuarios(): Observable<CadastroUser[]> {
-        return this.http.get<CadastroUser[]>(`http://localhost:3000/cadastroUser`)
+        return this.http.get<CadastroUser[]>(`http://localhost:3000/api/usuarios`)
     }
 
+    getUser(): Observable<CadastroUser> {
+        return this.http.get<CadastroUser>(`http://localhost:3000/api/userlogged`, options)
+    }
 }

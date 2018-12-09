@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CadastroUser } from './cadastroUser.model';
 import { UsuarioService } from './cadastroUser.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cadastro',
@@ -11,7 +12,8 @@ import { UsuarioService } from './cadastroUser.service';
 export class CadastroComponent implements OnInit {
 
   constructor(private route: Router,
-    private usuarioService: UsuarioService) { }
+    private usuarioService: UsuarioService,
+    private modalService: NgbModal) { }
 
   public estados: any[] = [
     { nome: "", value: "" },
@@ -55,24 +57,43 @@ export class CadastroComponent implements OnInit {
     numero: 0,
     telefone: 0,
     cidade: "",
-    estado: ""
+    estado: "",
+    hortas: []
   }
 
+  public isEmailValid: boolean = false
 
 
   ngOnInit() {
+  }
+
+  validateEmail(email: string): void {
+    const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i;
+
+    if (email !== '' && (email.length <= 5 || !regex.test(email))) {
+      this.isEmailValid = false
+    } else {
+      this.isEmailValid = true
+    }
   }
 
   handleLogin() {
     this.route.navigate(['/login'])
   }
 
-  handleSubmit() {
+  handleSubmit(modal) {
+    console.log("oiiiii")
     this.usuarioService.postUsuario(this.usuario).subscribe(
       () => {
-        console.log(this.usuario)
+        console.log("ok")
+        this.modalService.open(modal, { windowClass: 'dark-modal', size: "lg" });
       }
     )
+  }
+
+  confirmCadastro() {
+    this.modalService.dismissAll()
+    this.route.navigate(['/login'])
   }
 
 }

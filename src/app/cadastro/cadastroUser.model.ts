@@ -12,4 +12,5 @@ export class CadastroUser {
     telefone: number
     cidade: string
     estado: string
+    hortas: Horta[]
 }
